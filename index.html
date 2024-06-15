@@ -17,12 +17,13 @@
         <input type="text" id="playerName" placeholder="Player Name" required />
         <button type="submit">Add Player</button>
       </form>
-      <ul id="playerList"></ul>
+      <ul id="setupPlayerList"></ul>
       <button id="startGameButton" onclick="startGame()">Start Game</button>
     </div>
 
     <div id="game" style="display: none" onclick="nextTurn()">
       <h1 id="currentPlayer"></h1>
+      <ul id="gamePlayerList"></ul>
     </div>
     <script src="script.js"></script>
   </body>

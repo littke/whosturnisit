@@ -14,10 +14,10 @@ function addPlayer() {
   const playerName = playerNameInput.value.trim();
   if (playerName) {
     players.push(playerName);
-    const playerList = document.getElementById("playerList");
+    const setupPlayerList = document.getElementById("setupPlayerList");
     const listItem = document.createElement("li");
     listItem.textContent = playerName;
-    playerList.appendChild(listItem);
+    setupPlayerList.appendChild(listItem);
     playerNameInput.value = "";
   }
 
@@ -34,9 +34,35 @@ function startGame() {
       players[currentPlayerIndex];
     document.body.style.backgroundColor =
       colors[currentPlayerIndex % colors.length];
+
+    const gamePlayerList = document.getElementById("gamePlayerList");
+
+    // Add players to the gamePlayerList
+    players.forEach((player) => {
+      const listItem = document.createElement("li");
+      listItem.textContent = player;
+      gamePlayerList.appendChild(listItem);
+    });
+
+    // Mark the first player as current
+    updatePlayerListTurn();
   } else {
     alert("Please add at least one player.");
   }
+}
+
+/*
+ * Update the player list to show which player's turn it is.
+ */
+function updatePlayerListTurn() {
+  const playerListItems = document.querySelectorAll("#gamePlayerList li");
+  playerListItems.forEach((item, index) => {
+    if (index === currentPlayerIndex) {
+      item.classList.add("current");
+    } else {
+      item.classList.remove("current");
+    }
+  });
 }
 
 const sound = document.getElementById("truddelutt-1");
@@ -45,6 +71,8 @@ function nextTurn() {
 
   document.getElementById("currentPlayer").textContent =
     players[currentPlayerIndex];
+
+  updatePlayerListTurn();
 
   document.body.style.backgroundColor =
     colors[currentPlayerIndex % colors.length];
