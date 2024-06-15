@@ -37,10 +37,16 @@ function startGame() {
   }
 }
 
+const sound = document.getElementById("truddelutt-1");
 function nextTurn() {
   currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+
   document.getElementById("currentPlayer").textContent =
     players[currentPlayerIndex];
+
   document.body.style.backgroundColor =
     colors[currentPlayerIndex % colors.length];
+
+  sound.currentTime = 0;
+  sound.play();
 }

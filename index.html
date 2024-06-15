@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <audio id="truddelutt-1">
+      <source src="audio/truddelutt-1.mp3" type="audio/mpeg" />
+    </audio>
+
     <div id="setup">
       <h1>Enter Player Names</h1>
       <form id="playerForm" onsubmit="return addPlayer()">
@@ -16,6 +20,7 @@
       <ul id="playerList"></ul>
       <button id="startGameButton" onclick="startGame()">Start Game</button>
     </div>
+
     <div id="game" style="display: none" onclick="nextTurn()">
       <h1 id="currentPlayer"></h1>
     </div>
