@@ -181,6 +181,11 @@ let endY = null;
 let threshold = 50;
 
 document.addEventListener("touchstart", function (e) {
+  // Don't trigger when sorting the player list
+  if (e.target.tagName === "LI") {
+    return;
+  }
+
   startX = e.touches[0].clientX;
   startY = e.touches[0].clientY;
 });
