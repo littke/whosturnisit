@@ -61,6 +61,17 @@ function startGame() {
         );
       },
     });
+
+    // Handle click on a player in the gamePlayerList, make it that players turn
+    gamePlayerList.addEventListener("click", function (event) {
+      if (event.target.tagName === "LI") {
+        currentPlayerIndex =
+          Array.from(gamePlayerList.children).indexOf(event.target) - 1;
+        document.getElementById("currentPlayer").textContent =
+          players[currentPlayerIndex];
+        updatePlayerListTurn();
+      }
+    });
   } else {
     alert("Please add at least one player.");
   }
