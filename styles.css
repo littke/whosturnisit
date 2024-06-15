@@ -79,3 +79,11 @@ li {
   background: rgba(0, 0, 0, 0.1);
   color: rgba(0, 0, 0, 0.7);
 }
+
+#about {
+  margin-top: 80px;
+}
+
+a {
+  text-decoration: none;
+}

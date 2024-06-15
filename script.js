@@ -1,5 +1,7 @@
 let players = [];
 let currentPlayerIndex = 0;
+let currentBackgroundColor = 0;
+let backgroundAnimationTimeout;
 const colors = [
   "#FFCCCC",
   "#CCFFCC",
@@ -72,6 +74,9 @@ function startGame() {
         updatePlayerListTurn();
       }
     });
+
+    // Stop the background animation
+    clearTimeout(backgroundAnimationTimeout);
   } else {
     alert("Please add at least one player.");
   }
@@ -106,3 +111,13 @@ function nextTurn() {
   sound.currentTime = 0;
   sound.play();
 }
+
+function animateBackgroundColor() {
+  backgroundAnimationTimeout = setTimeout(() => {
+    currentBackgroundColor = (currentBackgroundColor + 1) % colors.length;
+    document.body.style.backgroundColor = colors[currentBackgroundColor];
+    animateBackgroundColor();
+  }, 3000);
+}
+
+animateBackgroundColor();
