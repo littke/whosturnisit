@@ -21,6 +21,8 @@ function addPlayer() {
     playerNameInput.value = "";
   }
 
+  playerNameInput.focus();
+
   return false;
 }
 

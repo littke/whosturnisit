@@ -1,12 +1,16 @@
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  padding: 20px;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* Prevents any overflow causing a scrollbar */
 }
 
 #setup {
   max-width: 400px;
   margin: 0 auto;
+  margin-top: 220px;
 }
 
 input {
