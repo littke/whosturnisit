@@ -46,6 +46,21 @@ function startGame() {
 
     // Mark the first player as current
     updatePlayerListTurn();
+
+    // Initialize SortableJS on the gamePlayerList
+    new Sortable(gamePlayerList, {
+      animation: 150,
+      onEnd: function (event) {
+        players = Array.from(gamePlayerList.children).map(
+          (item) => item.textContent
+        );
+
+        // Find the new index of the current player by looking at .current in the DOM
+        currentPlayerIndex = Array.from(gamePlayerList.children).findIndex(
+          (item) => item.classList.contains("current")
+        );
+      },
+    });
   } else {
     alert("Please add at least one player.");
   }
