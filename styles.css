@@ -1,5 +1,5 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: Georgia, Arial, sans-serif;
   text-align: center;
   margin: 0;
   padding: 0;
@@ -24,6 +24,12 @@ button {
   margin-top: 10px;
 }
 
+input,
+button {
+  border-radius: 5px;
+  border-width: 1px;
+}
+
 ul {
   list-style-type: none;
   padding: 0;
@@ -41,6 +47,8 @@ li {
 }
 
 #currentPlayer {
-  font-size: 2em;
+  font-size: 9em;
   user-select: none;
+  position: relative;
+  top: -10px;
 }
