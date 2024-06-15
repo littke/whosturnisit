@@ -23,9 +23,9 @@ const colors = [
 // Grab the sounds from the DOM
 const sounds = Array.from(document.querySelectorAll("audio"));
 
-function addPlayer() {
+function addPlayer(player) {
   const playerNameInput = document.getElementById("playerName");
-  const playerName = playerNameInput.value.trim();
+  const playerName = playerNameInput.value.trim() || player;
   if (playerName) {
     players.push(playerName);
     playersStartingOrder.push(playerName);
@@ -132,6 +132,35 @@ function nextTurn() {
   }
 }
 
+function previousTurn() {
+  currentPlayerIndex =
+    (currentPlayerIndex - 1 + players.length) % players.length;
+  currentPlayerName = players[currentPlayerIndex];
+  currentPlayerStartingOrder = playersStartingOrder.indexOf(currentPlayerName);
+
+  document.getElementById("currentPlayer").textContent =
+    players[currentPlayerIndex];
+
+  document.body.style.backgroundColor =
+    colors[currentPlayerIndex % colors.length];
+
+  updatePlayerListTurn();
+
+  document.body.style.backgroundColor =
+    colors[currentPlayerIndex % colors.length];
+
+  // Pause any other sounds
+  sounds.forEach((sound) => {
+    sound.pause();
+    sound.currentTime = 0;
+  });
+
+  // Play the current player's sound
+  if (sounds[currentPlayerStartingOrder]) {
+    sounds[currentPlayerStartingOrder].play();
+  }
+}
+
 // Prevent scrolling and refreshing on iPad
 document.addEventListener("touchmove", function (e) {
   e.preventDefault();
@@ -141,3 +170,54 @@ document.addEventListener("touchmove", function (e) {
 window.onbeforeunload = function () {
   return true;
 };
+
+// Handle space and arrows keys left and right
+document.addEventListener("keydown", function (e) {
+  if (e.key === " " || e.key === "ArrowRight") {
+    nextTurn();
+  } else if (e.key === "ArrowLeft") {
+    previousTurn();
+  }
+});
+
+// Handle swipe left and right on touch devices
+let startX = null;
+let startY = null;
+let endX = null;
+let endY = null;
+let threshold = 50;
+
+document.addEventListener("touchstart", function (e) {
+  startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
+});
+
+document.addEventListener("touchend", function (e) {
+  endX = e.changedTouches[0].clientX;
+  endY = e.changedTouches[0].clientY;
+  if (startX && startY && endX && endY) {
+    let dx = endX - startX;
+    let dy = endY - startY;
+    if (Math.abs(dx) > Math.abs(dy)) {
+      if (dx > threshold) {
+        nextTurn();
+      } else if (dx < -threshold) {
+        previousTurn();
+      }
+    }
+  }
+  startX = null;
+  startY = null;
+  endX = null;
+  endY = null;
+});
+
+// Dev mode: If URL has ?players=jon,unke,etc, add players to the list and start
+const urlParams = new URLSearchParams(window.location.search);
+const playersParam = urlParams.get("players");
+if (playersParam) {
+  let players = playersParam.split(",");
+  players.forEach((player) => addPlayer(player));
+
+  startGame();
+}
