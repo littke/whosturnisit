@@ -1,3 +1,10 @@
+/* Some random SO code to make iPads work! */
+head {
+  display: -webkit-inline-box;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+}
+
 body {
   font-family: Georgia, Arial, sans-serif;
   text-align: center;
