@@ -1,24 +1,50 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Board Game Turn Tracker</title>
+    <title>Who's turn is it?</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <audio id="truddelutt-1">
+      <source src="audio/truddelutt-1.mp3" type="audio/mpeg" />
+    </audio>
+    <audio id="truddelutt-2">
+      <source src="audio/truddelutt-2.mp3" type="audio/mpeg" />
+    </audio>
+    <audio id="truddelutt-3">
+      <source src="audio/truddelutt-3.mp3" type="audio/mpeg" />
+    </audio>
+    <audio id="truddelutt-4">
+      <source src="audio/truddelutt-4.mp3" type="audio/mpeg" />
+    </audio>
+    <audio id="truddelutt-5">
+      <source src="audio/truddelutt-5.mp3" type="audio/mpeg" />
+    </audio>
+    <audio id="coin-drop-1">
+      <source src="audio/coin-drop-1.mp3" type="audio/mpeg" />
+    </audio>
+
     <div id="setup">
-      <h1>Enter Player Names</h1>
-      <form id="playerForm" onsubmit="addPlayer()">
+      <h1>Who's turn is it?</h1>
+      <form id="playerForm" onsubmit="return addPlayer()">
         <input type="text" id="playerName" placeholder="Player Name" required />
-        <button type="button">Add Player</button>
+        <button type="submit">Add Player</button>
       </form>
-      <ul id="playerList"></ul>
+      <ul id="setupPlayerList"></ul>
       <button id="startGameButton" onclick="startGame()">Start Game</button>
+      <p id="about">
+        By <a href="https://littke.com">Jonatan Littke</a> • Powered by The Game
+        Garage
+      </p>
     </div>
+
     <div id="game" style="display: none" onclick="nextTurn()">
       <h1 id="currentPlayer"></h1>
+      <ul id="gamePlayerList"></ul>
     </div>
     <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
   </body>
 </html>

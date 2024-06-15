@@ -1,12 +1,18 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: Georgia, Arial, sans-serif;
   text-align: center;
-  padding: 20px;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* Prevents any overflow causing a scrollbar */
+
+  transition: background-color 1.2s;
 }
 
 #setup {
-  max-width: 300px;
+  max-width: 400px;
   margin: 0 auto;
+  margin-top: 220px;
 }
 
 input {
@@ -20,6 +26,12 @@ button {
   margin-top: 10px;
 }
 
+input,
+button {
+  border-radius: 5px;
+  border-width: 1px;
+}
+
 ul {
   list-style-type: none;
   padding: 0;
@@ -30,12 +42,51 @@ li {
 }
 
 #game {
-  display: flex;
+  display: table;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  height: 100dvh;
+  min-height: -webkit-fill-available;
 }
 
 #currentPlayer {
-  font-size: 2em;
+  font-size: 9em;
+  user-select: none;
+  cursor: pointer;
+  margin: 0;
+  margin-top: -6dvh;
+}
+
+#gamePlayerList {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: left;
+  user-select: none;
+}
+
+#gamePlayerList li {
+  padding: 13px 20px;
+  margin: 0 2px 5px;
+  border-radius: 60px;
+  display: inline-block;
+  color: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+}
+
+#gamePlayerList li.current {
+  font-weight: bold;
+  padding: 13px 16px;
+  background: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.7);
+}
+
+#about {
+  margin-top: 80px;
+}
+
+a {
+  text-decoration: none;
 }
