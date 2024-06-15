@@ -7,6 +7,9 @@ body {
   overflow: hidden; /* Prevents any overflow causing a scrollbar */
 
   transition: background-color 1.2s;
+
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+  -webkit-touch-callout: none !important;
 }
 
 #setup {
@@ -65,7 +68,6 @@ li {
   transform: translateX(-50%);
   text-align: left;
   user-select: none;
-  background: none !important;
 }
 
 #gamePlayerList li {
@@ -75,7 +77,6 @@ li {
   display: inline-block;
   color: rgba(0, 0, 0, 0.7);
   cursor: pointer;
-  background: none;
 }
 
 #gamePlayerList li.current {
