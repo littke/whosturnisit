@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Board Game Turn Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="setup">
+      <h1>Enter Player Names</h1>
+      <form id="playerForm" onsubmit="addPlayer()">
+        <input type="text" id="playerName" placeholder="Player Name" required />
+        <button type="button">Add Player</button>
+      </form>
+      <ul id="playerList"></ul>
+      <button id="startGameButton" onclick="startGame()">Start Game</button>
+    </div>
+    <div id="game" style="display: none" onclick="nextTurn()">
+      <h1 id="currentPlayer"></h1>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
