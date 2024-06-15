@@ -44,3 +44,13 @@ function nextTurn() {
   document.body.style.backgroundColor =
     colors[currentPlayerIndex % colors.length];
 }
+
+// Prevent scrolling and refreshing on iPad
+document.addEventListener("touchmove", function (e) {
+  e.preventDefault();
+});
+
+// Confirm before refreshing
+window.onbeforeunload = function () {
+  return true;
+};
