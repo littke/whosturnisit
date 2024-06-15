@@ -1,3 +1,14 @@
+document.addEventListener("DOMContentLoaded", function () {
+  function setDynamicVh() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  }
+
+  setDynamicVh();
+
+  window.addEventListener("resize", setDynamicVh);
+});
+
 let players = [];
 let playersStartingOrder = [];
 let currentPlayerIndex = 0;
