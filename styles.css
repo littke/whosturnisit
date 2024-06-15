@@ -66,15 +66,16 @@ li {
 
 #gamePlayerList li {
   padding: 13px 20px;
-  margin-bottom: 5px;
+  margin: 0 2px 5px;
+  border-radius: 60px;
   display: inline-block;
   color: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
 }
 
 #gamePlayerList li.current {
   font-weight: bold;
   padding: 13px 16px;
-  border-radius: 60px;
   background: rgba(0, 0, 0, 0.1);
   color: rgba(0, 0, 0, 0.7);
 }
