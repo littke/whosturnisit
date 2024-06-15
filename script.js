@@ -9,6 +9,8 @@ const colors = [
   "#FFCCFF",
   "#CCFFFF",
 ];
+// Grab the sounds from the DOM
+const sounds = Array.from(document.querySelectorAll("audio"));
 
 function addPlayer() {
   const playerNameInput = document.getElementById("playerName");
@@ -48,6 +50,7 @@ function startGame() {
 
     // Mark the first player as current
     updatePlayerListTurn();
+    sounds[0].play();
 
     // Initialize SortableJS on the gamePlayerList
     new Sortable(gamePlayerList, {
@@ -92,9 +95,6 @@ function updatePlayerListTurn() {
     }
   });
 }
-
-// Grab the sounds from the DOM
-const sounds = Array.from(document.querySelectorAll("audio"));
 
 function nextTurn() {
   currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
