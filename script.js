@@ -1,17 +1,7 @@
-document.addEventListener("DOMContentLoaded", function () {
-  function setDynamicVh() {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-  }
-
-  setDynamicVh();
-
-  window.addEventListener("resize", setDynamicVh);
-});
-
 let players = [];
 let playersStartingOrder = [];
 let currentPlayerIndex = 0;
+let gameStarted = false;
 const colors = [
   "#FFCCCC",
   "#CCFFCC",
@@ -42,6 +32,7 @@ function addPlayer(player) {
 }
 
 function startGame() {
+  gameStarted = true;
   if (players.length > 0) {
     document.getElementById("setup").style.display = "none";
     document.getElementById("game").style.display = "flex";
@@ -173,7 +164,9 @@ window.onbeforeunload = function () {
 
 // Handle space and arrows keys left and right
 document.addEventListener("keydown", function (e) {
-  if (e.key === " " || e.key === "ArrowRight") {
+  if (e.key === " " && gameStarted) {
+    nextTurn();
+  } else if (e.key === "ArrowRight") {
     nextTurn();
   } else if (e.key === "ArrowLeft") {
     previousTurn();
@@ -200,9 +193,9 @@ document.addEventListener("touchend", function (e) {
     let dy = endY - startY;
     if (Math.abs(dx) > Math.abs(dy)) {
       if (dx > threshold) {
-        nextTurn();
-      } else if (dx < -threshold) {
         previousTurn();
+      } else if (dx < -threshold) {
+        nextTurn();
       }
     }
   }
