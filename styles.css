@@ -42,10 +42,11 @@ li {
 }
 
 #game {
-  display: flex;
+  display: table;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  min-height: -webkit-fill-available;
 }
 
 #currentPlayer {
