@@ -1,7 +1,6 @@
 let players = [];
+let playersStartingOrder = [];
 let currentPlayerIndex = 0;
-let currentBackgroundColor = 0;
-let backgroundAnimationTimeout;
 const colors = [
   "#FFCCCC",
   "#CCFFCC",
@@ -16,6 +15,7 @@ function addPlayer() {
   const playerName = playerNameInput.value.trim();
   if (playerName) {
     players.push(playerName);
+    playersStartingOrder.push(playerName);
     const setupPlayerList = document.getElementById("setupPlayerList");
     const listItem = document.createElement("li");
     listItem.textContent = playerName;
@@ -74,9 +74,6 @@ function startGame() {
         updatePlayerListTurn();
       }
     });
-
-    // Stop the background animation
-    clearTimeout(backgroundAnimationTimeout);
   } else {
     alert("Please add at least one player.");
   }
@@ -96,9 +93,13 @@ function updatePlayerListTurn() {
   });
 }
 
-const sound = document.getElementById("truddelutt-1");
+// Grab the sounds from the DOM
+const sounds = Array.from(document.querySelectorAll("audio"));
+
 function nextTurn() {
   currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+  currentPlayerName = players[currentPlayerIndex];
+  currentPlayerStartingOrder = playersStartingOrder.indexOf(currentPlayerName);
 
   document.getElementById("currentPlayer").textContent =
     players[currentPlayerIndex];
@@ -108,16 +109,14 @@ function nextTurn() {
   document.body.style.backgroundColor =
     colors[currentPlayerIndex % colors.length];
 
-  sound.currentTime = 0;
-  sound.play();
-}
+  // Pause any other sounds
+  sounds.forEach((sound) => {
+    sound.pause();
+    sound.currentTime = 0;
+  });
 
-function animateBackgroundColor() {
-  backgroundAnimationTimeout = setTimeout(() => {
-    currentBackgroundColor = (currentBackgroundColor + 1) % colors.length;
-    document.body.style.backgroundColor = colors[currentBackgroundColor];
-    animateBackgroundColor();
-  }, 3000);
+  // Play the current player's sound
+  if (sounds[currentPlayerStartingOrder]) {
+    sounds[currentPlayerStartingOrder].play();
+  }
 }
-
-animateBackgroundColor();
