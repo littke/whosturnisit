@@ -9,7 +9,7 @@ const colors = [
   "#CCFFFF",
 ];
 
-function addPlayer(e) {
+function addPlayer() {
   const playerNameInput = document.getElementById("playerName");
   const playerName = playerNameInput.value.trim();
   if (playerName) {
@@ -21,7 +21,7 @@ function addPlayer(e) {
     playerNameInput.value = "";
   }
 
-  e.preventDefault();
+  return false;
 }
 
 function startGame() {

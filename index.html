@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -9,9 +9,9 @@
   <body>
     <div id="setup">
       <h1>Enter Player Names</h1>
-      <form id="playerForm" onsubmit="addPlayer()">
+      <form id="playerForm" onsubmit="return addPlayer()">
         <input type="text" id="playerName" placeholder="Player Name" required />
-        <button type="button">Add Player</button>
+        <button type="submit">Add Player</button>
       </form>
       <ul id="playerList"></ul>
       <button id="startGameButton" onclick="startGame()">Start Game</button>
