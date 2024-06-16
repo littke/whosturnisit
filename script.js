@@ -226,7 +226,9 @@ document.addEventListener("touchmove", function (e) {
 
 // Confirm before refreshing
 window.onbeforeunload = function () {
-  return true;
+  if (gameStarted && !window.location.search.includes("devmode")) {
+    return "Are you sure you want to leave? Your game will be lost.";
+  }
 };
 
 // Handle space and arrows keys left and right
