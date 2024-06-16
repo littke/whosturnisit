@@ -130,10 +130,13 @@ function updatePlayer(currentPlayerIndex) {
 
       player.style.transition = "none";
       player.style.fontSize = `${fontSize}em`;
+      timer.style.transition = "none";
+      timer.style.fontSize = `${fontSize * 0.22}em`;
 
       // After 1 second, re-add transition
       setTimeout(() => {
         player.style.transition = "font-size 1.5s";
+        timer.style.transition = "font-size 1.5s";
       }, 1000);
     }
 
