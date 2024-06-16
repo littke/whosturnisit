@@ -56,10 +56,14 @@ function startGame() {
     // Save the game options from setup
     gameOptions.timer = document.getElementById("useTimer").checked;
     gameOptions.growSlow = document.getElementById("useGrowSlow").checked;
+    gameOptions.voiceCommands =
+      document.getElementById("useVoiceCommands").checked;
 
     // Mark the first player as current
     updatePlayer(0);
     updatePlayerList();
+
+    if (gameOptions.voiceCommands) startSpeechRecognition();
 
     // Initialize SortableJS on the gamePlayerList
     new Sortable(gamePlayerList, {
@@ -281,4 +285,37 @@ if (playersParam) {
   players.forEach((player) => addPlayer(player));
 
   startGame();
+}
+
+// Listen for "I'm done" voice command and advance the turn
+function startSpeechRecognition() {
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    alert("Speech recognition is not supported in your browser.");
+  }
+
+  const recognition = new SpeechRecognition();
+  recognition.lang = "en-US";
+  recognition.continuous = true;
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  recognition.onresult = function (event) {
+    const last = event.results.length - 1;
+    const command = event.results[last][0].transcript.toLowerCase();
+    console.log(command);
+    if (command.includes("i'm done")) {
+      nextTurn();
+    }
+  };
+
+  // Handle errors
+  recognition.onerror = function (event) {
+    console.error(event.error);
+  };
+
+  // Start the recognition
+  recognition.start();
 }
