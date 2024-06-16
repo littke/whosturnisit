@@ -2,6 +2,7 @@ let players = [];
 let playersStartingOrder = [];
 let currentPlayerIndex = 0;
 let gameStarted = false;
+let interval = null;
 const colors = [
   "#FFCCCC",
   "#CCFFCC",
@@ -53,6 +54,7 @@ function startGame() {
     // Mark the first player as current
     updatePlayerListTurn();
     sounds[0].play();
+    startTimer();
 
     // Initialize SortableJS on the gamePlayerList
     new Sortable(gamePlayerList, {
@@ -98,6 +100,28 @@ function updatePlayerListTurn() {
   });
 }
 
+/*
+ * Start the timer for the current player, counting from 0:00 and incrementing by 1 second.
+ */
+function startTimer() {
+  let time = 0;
+  const timer = document.getElementById("timer");
+  timer.textContent = "0:00";
+
+  if (interval) {
+    clearInterval(interval); // Clear any previous interval
+  }
+
+  interval = setInterval(() => {
+    time++;
+    timer.textContent = `${Math.floor(time / 60)}:${(time % 60)
+      .toString()
+      .padStart(2, "0")}`;
+  }, 1000);
+
+  return interval;
+}
+
 function nextTurn() {
   currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
   currentPlayerName = players[currentPlayerIndex];
@@ -121,6 +145,8 @@ function nextTurn() {
   if (sounds[currentPlayerStartingOrder]) {
     sounds[currentPlayerStartingOrder].play();
   }
+
+  startTimer();
 }
 
 function previousTurn() {
@@ -150,6 +176,8 @@ function previousTurn() {
   if (sounds[currentPlayerStartingOrder]) {
     sounds[currentPlayerStartingOrder].play();
   }
+
+  startTimer();
 }
 
 // Prevent scrolling and refreshing on iPad

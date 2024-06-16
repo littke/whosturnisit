@@ -93,3 +93,14 @@ li {
 a {
   text-decoration: none;
 }
+
+/* Style the timer to be center top */
+#timer {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2em;
+  user-select: none;
+  font-weight: normal;
+}
