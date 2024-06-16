@@ -12,12 +12,6 @@ body {
   -webkit-touch-callout: none !important;
 }
 
-#setup {
-  max-width: 400px;
-  margin: 0 auto;
-  margin-top: 220px;
-}
-
 input {
   padding: 10px;
   font-size: 16px;
@@ -35,6 +29,10 @@ button {
   border-width: 1px;
 }
 
+form {
+  margin-bottom: 40px;
+}
+
 ul {
   list-style-type: none;
   padding: 0;
@@ -42,6 +40,20 @@ ul {
 
 li {
   padding: 5px;
+}
+
+#setup {
+  max-width: 400px;
+  margin: 0 auto;
+  margin-top: 220px;
+  text-align: left;
+}
+
+#setupPlayerList li {
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 2.5em;
+  margin-left: -3px;
+  font-weight: bold;
 }
 
 #game {

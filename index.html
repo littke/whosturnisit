@@ -29,11 +29,17 @@
 
     <div id="setup">
       <h1>Who's turn is it?</h1>
+      <h3>Players</h3>
+      <ul id="setupPlayerList"></ul>
       <form id="playerForm" onsubmit="return addPlayer()">
         <input type="text" id="playerName" placeholder="Player Name" required />
         <button type="submit">Add Player</button>
       </form>
-      <ul id="setupPlayerList"></ul>
+      <p>
+        <h3>Options</h3>
+        <input type="checkbox" id="useTimer" checked />
+        Show timer
+      </p>
       <button id="startGameButton" onclick="startGame()">Start Game</button>
       <p id="about">
         By <a href="https://littke.com">Jonatan Littke</a> • Powered by The Game
