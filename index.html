@@ -35,11 +35,17 @@
         <input type="text" id="playerName" placeholder="Player Name" required />
         <button type="submit">Add Player</button>
       </form>
-      <p>
+      <div>
         <h3>Options</h3>
-        <input type="checkbox" id="useTimer" checked />
-        Show timer
-      </p>
+        <p>
+          <input type="checkbox" id="useTimer" checked />
+          Show timer
+        </p>
+        <p>
+          <input type="checkbox" id="useGrowSlow" checked />
+          Shake and grow slow players
+        </p>
+      </div>
       <button id="startGameButton" onclick="startGame()">Start Game</button>
       <p id="about">
         By <a href="https://littke.com">Jonatan Littke</a> • Powered by The Game
@@ -49,7 +55,7 @@
 
     <div id="game" style="display: none" onclick="nextTurn()">
       <h1 id="timer"></h1>
-      <h1 id="currentPlayer"></h1>
+      <h1 id="currentPlayer" class="transition"></h1>
       <ul id="gamePlayerList"></ul>
     </div>
     <script src="script.js"></script>

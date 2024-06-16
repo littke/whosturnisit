@@ -2,7 +2,8 @@ let players = [];
 let playersStartingOrder = [];
 let currentPlayerIndex = 0;
 let gameStarted = false;
-let interval = null;
+let timerInterval = null;
+let growInterval = null;
 let gameOptions = {};
 const colors = [
   "#FFCCCC",
@@ -54,6 +55,7 @@ function startGame() {
 
     // Save the game options from setup
     gameOptions.timer = document.getElementById("useTimer").checked;
+    gameOptions.growSlow = document.getElementById("useGrowSlow").checked;
 
     // Mark the first player as current
     updatePlayer(0);
@@ -81,7 +83,7 @@ function startGame() {
           Array.from(gamePlayerList.children).indexOf(event.target) - 1;
         document.getElementById("currentPlayer").textContent =
           players[currentPlayerIndex];
-        updatePlayerListTurn();
+        updatePlayerList();
       }
     });
   } else {
@@ -114,6 +116,49 @@ function updatePlayer(currentPlayerIndex) {
   }
 
   if (gameOptions.timer) startTimer();
+
+  if (gameOptions.growSlow) {
+    // Make the player's font size bigger as time goes by
+    const player = document.getElementById("currentPlayer");
+    const timer = document.getElementById("timer");
+
+    let fontSize = 9;
+
+    // Start by resetting
+    if (growInterval) {
+      clearInterval(growInterval);
+
+      player.style.transition = "none";
+      player.style.fontSize = `${fontSize}em`;
+
+      // After 1 second, re-add transition
+      setTimeout(() => {
+        player.style.transition = "font-size 1.5s";
+      }, 1000);
+    }
+
+    growInterval = setInterval(() => {
+      // Slowly increase the font size
+      fontSize = fontSize * 1.03;
+
+      // But only up to a certain limit
+      if (fontSize > 19) {
+        fontSize = 19;
+      }
+      player.style.fontSize = `${fontSize}em`;
+      timer.style.fontSize = `${fontSize * 0.25}em`;
+
+      // Start shaking once it's at a certain size
+      if (fontSize > 18) {
+        player.classList.add("shake");
+
+        // Remove the shake after 1 second
+        setTimeout(() => {
+          player.classList.remove("shake");
+        }, 750);
+      }
+    }, 5000);
+  }
 }
 
 /*
@@ -153,18 +198,18 @@ function startTimer() {
   const timer = document.getElementById("timer");
   timer.textContent = "0:00";
 
-  if (interval) {
-    clearInterval(interval); // Clear any previous interval
+  if (timerInterval) {
+    clearInterval(timerInterval); // Clear any previous interval
   }
 
-  interval = setInterval(() => {
+  timerInterval = setInterval(() => {
     time++;
     timer.textContent = `${Math.floor(time / 60)}:${(time % 60)
       .toString()
       .padStart(2, "0")}`;
   }, 1000);
 
-  return interval;
+  return timerInterval;
 }
 
 // Prevent scrolling and refreshing on iPad
