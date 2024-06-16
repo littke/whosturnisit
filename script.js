@@ -63,7 +63,12 @@ function startGame() {
     updatePlayer(0);
     updatePlayerList();
 
-    if (gameOptions.voiceCommands) startSpeechRecognition();
+    if (
+      gameOptions.voiceCommands &&
+      !window.location.search.includes("devmode")
+    ) {
+      startSpeechRecognition();
+    }
 
     // Initialize SortableJS on the gamePlayerList
     new Sortable(gamePlayerList, {
@@ -121,42 +126,46 @@ function updatePlayer(currentPlayerIndex) {
 
   if (gameOptions.timer) startTimer();
 
+  // If the growSlow option is enabled, start the grow animation
   if (gameOptions.growSlow) {
-    // Make the player's font size bigger as time goes by
     const player = document.getElementById("currentPlayer");
     const timer = document.getElementById("timer");
 
-    let fontSize = 9;
+    let size = 1;
 
-    // Start by resetting
+    // Start of turn should always be the same size,
+    // so clear any previous growInterval
     if (growInterval) {
       clearInterval(growInterval);
 
+      // Remove transition when shrinking
       player.style.transition = "none";
-      player.style.fontSize = `${fontSize}em`;
       timer.style.transition = "none";
-      timer.style.fontSize = `${fontSize * 0.22}em`;
+
+      player.style.scale = size;
+      timer.style.scale = size;
 
       // After 1 second, re-add transition
       setTimeout(() => {
-        player.style.transition = "font-size 1.5s";
-        timer.style.transition = "font-size 1.5s";
+        player.style.transition = "scale 1.5s ease-in-out";
+        timer.style.transition = "scale 1.5s ease-in-out";
       }, 1000);
     }
 
     growInterval = setInterval(() => {
       // Slowly increase the font size
-      fontSize = fontSize * 1.03;
+      size = size * 1.03;
 
       // But only up to a certain limit
-      if (fontSize > 19) {
-        fontSize = 19;
+      if (size > 2) {
+        size = 2;
       }
-      player.style.fontSize = `${fontSize}em`;
-      timer.style.fontSize = `${fontSize * 0.25}em`;
+
+      player.style.scale = size;
+      timer.style.scale = size;
 
       // Start shaking once it's at a certain size
-      if (fontSize > 18) {
+      if (size > 1.8) {
         player.classList.add("shake");
 
         // Remove the shake after 1 second

@@ -57,7 +57,6 @@ li {
 }
 
 #game {
-  display: table;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -71,7 +70,7 @@ li {
   cursor: pointer;
   margin: 0;
   margin-top: -6dvh;
-  transition: font-size 1.5s;
+  transition: scale 1.5s ease-in-out;
 }
 
 @keyframes shake {
@@ -133,12 +132,12 @@ a {
 /* Style the timer to be center top */
 #timer {
   position: absolute;
-  top: 25px;
+  top: 33px;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   font-size: 2em;
   user-select: none;
   font-weight: normal;
 
-  transition: font-size 1.5s;
+  transition: scale 1.5s;
 }
