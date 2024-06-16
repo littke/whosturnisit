@@ -52,14 +52,12 @@ function startGame() {
       gamePlayerList.appendChild(listItem);
     });
 
-    // See if we're using timer
+    // Save the game options from setup
     gameOptions.timer = document.getElementById("useTimer").checked;
 
     // Mark the first player as current
-    updatePlayerListTurn();
-    sounds[0].play();
-
-    if (gameOptions.timer) startTimer();
+    updatePlayer(0);
+    updatePlayerList();
 
     // Initialize SortableJS on the gamePlayerList
     new Sortable(gamePlayerList, {
@@ -92,9 +90,36 @@ function startGame() {
 }
 
 /*
+ * A function to update which player is currently playing.
+ */
+function updatePlayer(currentPlayerIndex) {
+  currentPlayerName = players[currentPlayerIndex];
+  currentPlayerStartingOrder = playersStartingOrder.indexOf(currentPlayerName);
+
+  document.getElementById("currentPlayer").textContent =
+    players[currentPlayerIndex];
+
+  document.body.style.backgroundColor =
+    colors[currentPlayerIndex % colors.length];
+
+  // Pause any other sounds
+  sounds.forEach((sound) => {
+    sound.pause();
+    sound.currentTime = 0;
+  });
+
+  // Play the current player's sound
+  if (sounds[currentPlayerStartingOrder]) {
+    sounds[currentPlayerStartingOrder].play();
+  }
+
+  if (gameOptions.timer) startTimer();
+}
+
+/*
  * Update the player list to show which player's turn it is.
  */
-function updatePlayerListTurn() {
+function updatePlayerList() {
   const playerListItems = document.querySelectorAll("#gamePlayerList li");
   playerListItems.forEach((item, index) => {
     if (index === currentPlayerIndex) {
@@ -103,6 +128,21 @@ function updatePlayerListTurn() {
       item.classList.remove("current");
     }
   });
+}
+
+function nextTurn() {
+  currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+
+  updatePlayer(currentPlayerIndex);
+  updatePlayerList();
+}
+
+function previousTurn() {
+  currentPlayerIndex =
+    (currentPlayerIndex - 1 + players.length) % players.length;
+
+  updatePlayer(currentPlayerIndex);
+  updatePlayerList();
 }
 
 /*
@@ -125,64 +165,6 @@ function startTimer() {
   }, 1000);
 
   return interval;
-}
-
-function nextTurn() {
-  currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
-  currentPlayerName = players[currentPlayerIndex];
-  currentPlayerStartingOrder = playersStartingOrder.indexOf(currentPlayerName);
-
-  document.getElementById("currentPlayer").textContent =
-    players[currentPlayerIndex];
-
-  updatePlayerListTurn();
-
-  document.body.style.backgroundColor =
-    colors[currentPlayerIndex % colors.length];
-
-  // Pause any other sounds
-  sounds.forEach((sound) => {
-    sound.pause();
-    sound.currentTime = 0;
-  });
-
-  // Play the current player's sound
-  if (sounds[currentPlayerStartingOrder]) {
-    sounds[currentPlayerStartingOrder].play();
-  }
-
-  if (gameOptions.timer) startTimer();
-}
-
-function previousTurn() {
-  currentPlayerIndex =
-    (currentPlayerIndex - 1 + players.length) % players.length;
-  currentPlayerName = players[currentPlayerIndex];
-  currentPlayerStartingOrder = playersStartingOrder.indexOf(currentPlayerName);
-
-  document.getElementById("currentPlayer").textContent =
-    players[currentPlayerIndex];
-
-  document.body.style.backgroundColor =
-    colors[currentPlayerIndex % colors.length];
-
-  updatePlayerListTurn();
-
-  document.body.style.backgroundColor =
-    colors[currentPlayerIndex % colors.length];
-
-  // Pause any other sounds
-  sounds.forEach((sound) => {
-    sound.pause();
-    sound.currentTime = 0;
-  });
-
-  // Play the current player's sound
-  if (sounds[currentPlayerStartingOrder]) {
-    sounds[currentPlayerStartingOrder].play();
-  }
-
-  if (gameOptions.timer) startTimer();
 }
 
 // Prevent scrolling and refreshing on iPad
