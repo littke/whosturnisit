@@ -8,11 +8,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
   </head>
   <body>
+    <audio id="r2d2-1">
+      <source src="audio/r2d2.wav" type="audio/wav" />
+    </audio>
+    <audio id="laser-beam-1">
+      <source src="audio/laser-beam-1.mp3" type="audio/mpeg" />
+    </audio>
     <audio id="truddelutt-1">
       <source src="audio/truddelutt-1.mp3" type="audio/mpeg" />
     </audio>
-    <audio id="truddelutt-2">
-      <source src="audio/truddelutt-2.mp3" type="audio/mpeg" />
+    <audio id="coin-drop-1">
+      <source src="audio/coin-drop-1.mp3" type="audio/mpeg" />
+    </audio>
+    <audio id="synth-1">
+      <source src="audio/synth-1.wav" type="audio/wav" />
+    </audio>
+    <audio id="singing-1">
+      <source src="audio/singing-1.wav" type="audio/wav" />
     </audio>
     <audio id="truddelutt-3">
       <source src="audio/truddelutt-3.mp3" type="audio/mpeg" />
@@ -23,8 +35,8 @@
     <audio id="truddelutt-5">
       <source src="audio/truddelutt-5.mp3" type="audio/mpeg" />
     </audio>
-    <audio id="coin-drop-1">
-      <source src="audio/coin-drop-1.mp3" type="audio/mpeg" />
+    <audio id="truddelutt-2">
+      <source src="audio/truddelutt-2.mp3" type="audio/mpeg" />
     </audio>
 
     <div id="setup">
@@ -47,7 +59,7 @@
         </p>
         <p>
           <input type="checkbox" id="useVoiceCommands" checked />
-          Listen for voice commands ("I'm done")
+          Listen for voice commands ("I'm done" etc)
         </p>
       </div>
       <button id="startGameButton" onclick="startGame()">Start Game</button>

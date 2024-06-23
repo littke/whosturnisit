@@ -154,7 +154,7 @@ function updatePlayer(currentPlayerIndex) {
 
     growInterval = setInterval(() => {
       // Slowly increase the font size
-      size = size * 1.03;
+      size = size * 1.02;
 
       // But only up to a certain limit
       if (size > 2) {
@@ -165,7 +165,7 @@ function updatePlayer(currentPlayerIndex) {
       timer.style.scale = size;
 
       // Start shaking once it's at a certain size
-      if (size > 1.8) {
+      if (size > 1.9) {
         player.classList.add("shake");
 
         // Remove the shake after 1 second
@@ -317,7 +317,12 @@ function startSpeechRecognition() {
     const last = event.results.length - 1;
     const command = event.results[last][0].transcript.toLowerCase();
     console.log(command);
-    if (command.includes("i'm done")) {
+    if (
+      command.includes("i'm done") ||
+      command.includes("i am done") ||
+      command.includes("next player") ||
+      command.includes("i pass")
+    ) {
       nextTurn();
     }
   };
